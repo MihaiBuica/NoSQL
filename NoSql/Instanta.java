@@ -1,19 +1,13 @@
-
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- *
- * @author Mihai
+ * Clasa ce implementeaza o instanta.
+ * @author Mihai_Buica
  */
 public class Instanta implements Comparable<Instanta>, Cloneable{
     private List<Object> info = new ArrayList();
@@ -21,6 +15,13 @@ public class Instanta implements Comparable<Instanta>, Cloneable{
     private Entitate e;
     private Object cheie_primara;
   
+    /**
+     * Constructor ce primeste entitatea si un vector de atribute
+     * Identifica tipul de atribut, cheia primara si instantiaza atributele
+     * cheie_primara si info.
+     * @param e entitatea
+     * @param s vector de atribute ale instantei, ce trebuie identificate
+     */
     public Instanta(Entitate e, String[] s){
         this.e = e;
         for(int i = 0; i < e.getNoAtrib(); i++){
@@ -51,19 +52,32 @@ public class Instanta implements Comparable<Instanta>, Cloneable{
         }
        this.timpCreare = System.nanoTime();
     }
-    private void time(){
-        this.timpCreare = System.currentTimeMillis();
-    }
+
+    /**
+     * @return numele entitatii din care "face parte".
+     */
     public String getNumeEnitate(){
         return e.getNume();
     }
+
+    /**
+     * @return cheia primara sub forma de string
+     */
     public String getCheiePrimara(){
         return this.cheie_primara.toString();
     }
+
+    /**
+     * @return timpul in nano secunde cand a fost creat
+     */
     public Long getTimpCreare() {
         return timpCreare;
     }
     
+    /**
+     * Metoda de afisare a informatiilor despre instanta.
+     * @param f fisierul in care se scrie.
+     */
     public void afis(FileWriter f){
         PrintWriter printWriter = new PrintWriter(f);
         printWriter.print(this.e.getNume()+" ");
@@ -87,6 +101,7 @@ public class Instanta implements Comparable<Instanta>, Cloneable{
         }
        printWriter.println();
     }
+    
     @Override
     public int compareTo(Instanta o) {
         if(this.timpCreare.compareTo(o.getTimpCreare()) > 0){
